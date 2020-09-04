@@ -1,5 +1,5 @@
 function HS_cmp(force) {
-    
+
     var self = this;
     self.config = {
         'lang': {
@@ -45,26 +45,41 @@ function HS_cmp(force) {
         return false;
     }
 
-    function dataLayerPush(group) {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({'event': 'cmp_' + group});
-        console.log('HS_cmp', group);
-    }
-
     function removeLayer() {
         document.getElementById('HS_cmp').remove();
+    }
+
+    function checkLoaded() {
+        return document.readyState === "complete" || document.readyState === "interactive";
     }
 
     function done() {
         self.cookie = 'cmp|';
         if (self.analytics) {
-            dataLayerPush('analytics');
             self.cookie += 'analytics|';
+            if (checkLoaded()) {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({'event': 'cmp_analytics', 'cmp_analytics': 1});
+            } else {
+                window.addEventListener('load',function(){
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({'event': 'cmp_analytics', 'cmp_analytics': 1});
+                })
+            }
         }
         if (self.marketing) {
-            dataLayerPush('marketing');
             self.cookie += 'marketing|';
+            if (checkLoaded()) {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({'event': 'cmp_marketing', 'cmp_marketing': 1});
+            } else {
+                window.addEventListener('load',function(){
+                    window.dataLayer = window.dataLayer || [];
+                    window.dataLayer.push({'event': 'cmp_marketing', 'cmp_marketing': 1});
+                })
+            }
         }
+
         setCookie('HS_cmp', self.cookie, 30);
         removeLayer();
     }
