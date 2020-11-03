@@ -1,6 +1,7 @@
-function HS_cmp(force) {
+function AganGDPRcontrol(force) {
 
     var self = this;
+
     self.config = {
         'lang': {
             'saveIndividual': 'Cookies individuell festlegen',
@@ -14,7 +15,7 @@ function HS_cmp(force) {
             'layerAnalyticsText': 'Diese Cookies ermöglichen es uns, Besuche und Verkehrsquellen zu zählen, damit wir die Leistung unserer Website messen und verbessern können. Sie unterstützen uns bei der Beantwortung der Fragen, welche Seiten am beliebtesten sind, welche am wenigsten genutzt werden und wie sich Besucher auf der Website bewegen. Alle von diesen Cookies erfassten Informationen werden aggregiert und sind deshalb anonym. Wenn Sie diese Cookies nicht zulassen, können wir nicht wissen, wann Sie unsere Website besucht haben. <a href="">Hinweise zum Datenschutz</a>',
             'layerMarketingTitle': 'Marketing Cookies',
             'layerMarketingText': 'Marketing Cookies sammeln Informationen darüber, wie unsere Webseite genutzt wird, um deren Attraktivität, Inhalt und Funktionalität zu verbessern. Diese Cookies helfen uns zu bestimmen, ob, welche, wie oft und und wie lange Unterseiten unserer Webseite besucht werden und für welche Inhalte sich die Nutzer besonders interessieren. Ferner erfassen wir Bewegungen, „Klicks“ und das Scrollen mit der Computermaus, um zu verstehen, welche Bereiche unserer Webseite die Nutzer besonders interessieren. Diese Cookies speichern keine Informationen, die eine Identifikation des Nutzers zulassen. Die gesammelten Informationen sind aggregiert und ermöglichen uns keinen unmittelbaren Rückschluss auf deine Person. Sie dienen allein dazu, Statistiken zu erstellen, um die Inhalte unserer Webseite gezielter auf die Bedürfnisse unserer Nutzer abzustimmen, das Nutzerlebnis zu verbessern und unser Angebot zu optimieren. Marketing Cookies werden ferner verwendet, um Informationen über die vom Benutzer besuchten Webseiten zu sammeln, um zielgruppenorientierte Werbung für den Benutzer zu erstellen und an seinen Interessen ausgerichtete Werbeanzeigen auszuspielen. Sie werden außerdem dazu verwendet, die Erscheinungshäufigkeit einer Anzeige zu begrenzen und die Effektivität von Werbekampagnen zu messen. Diese Cookies können Informationen an unsere Plattform, oder an eine andere Webseite, zu der das Cookie gehört (Third Party Cookie) geschickt werden. Rechtsgrundlage für die Nutzung der Marketing Cookies ist Art. 6 Abs. 1 a) DSGVO inVerbindung mit Ihrer Einwilligung. <a href="">Hinweise zum Datenschutz</a>',
-        }
+        },
     };
 
     self.force = force || false;
@@ -45,86 +46,65 @@ function HS_cmp(force) {
         return false;
     }
 
-    function removeLayer() {
-        document.getElementById('HS_cmp').remove();
-    }
-
     function checkLoaded() {
         return document.readyState === "complete" || document.readyState === "interactive";
     }
 
     function done() {
-        self.cookie = 'cmp|';
-        if (self.analytics) {
-            self.cookie += 'analytics|';
-            if (checkLoaded()) {
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({'event': 'cmp_analytics', 'cmp_analytics': 1});
-            } else {
-                window.addEventListener('load',function(){
-                    window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push({'event': 'cmp_analytics', 'cmp_analytics': 1});
-                })
-            }
+        var allow = 'functional';
+        if (self.analytics) allow += ',analytics';
+        if (self.marketing) allow += ',marketing';
+        window.dataLayer = window.dataLayer || [];
+        if(checkLoaded()){
+            window.dataLayer.push({'event':'gdpr','gdpr_allow':allow});
+        } else {
+            document.addEventListener('DOMContentLoaded',function(){
+                window.dataLayer.push({'event':'gdpr','gdpr_allow':allow});
+            })
         }
-        if (self.marketing) {
-            self.cookie += 'marketing|';
-            if (checkLoaded()) {
-                window.dataLayer = window.dataLayer || [];
-                window.dataLayer.push({'event': 'cmp_marketing', 'cmp_marketing': 1});
-            } else {
-                window.addEventListener('load',function(){
-                    window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push({'event': 'cmp_marketing', 'cmp_marketing': 1});
-                })
-            }
-        }
-
-        setCookie('HS_cmp', self.cookie, 30);
-        removeLayer();
+        setCookie('gdpr', allow, 30);
+        document.getElementById('agan_gdpr').remove();
     }
 
     function toggleTo(section) {
-        document.getElementById('HS_cmp-footer').style.display = 'none';
-        document.getElementById('HS_cmp-details').style.display = 'none';
-        document.getElementById('HS_cmp-' + section).style.display = 'block';
+        document.getElementById('agan_gdpr-footer').style.display = 'none';
+        document.getElementById('agan_gdpr-details').style.display = 'none';
+        document.getElementById('agan_gdpr-' + section).style.display = 'block';
     }
 
-    function bind() {
-        document.getElementById('HS_cmp-footer-actions-default').addEventListener('click', function () {
+    function bindActionsToOverlayElements() {
+        document.getElementById('agan_gdpr-footer-actions-default').addEventListener('click', function () {
             toggleTo('details');
         });
-        document.getElementById('HS_cmp-details-close').addEventListener('click', function () {
+        document.getElementById('agan_gdpr-details-close').addEventListener('click', function () {
             toggleTo('footer');
         });
-        document.getElementById('HS_cmp-details-actions-success').addEventListener('click', function () {
-            setCookie('HS_cmp', '1', 30);
+        document.getElementById('agan_gdpr-details-actions-success').addEventListener('click', function () {
             self.analytics = true;
             self.marketing = true;
             done();
         });
-        document.getElementById('HS_cmp-footer-actions-success').addEventListener('click', function () {
-            setCookie('HS_cmp', '1', 30);
+        document.getElementById('agan_gdpr-footer-actions-success').addEventListener('click', function () {
             self.analytics = true;
             self.marketing = true;
             done();
         });
-        document.getElementById('HS_cmp-details-actions-default').addEventListener('click', function () {
-            setCookie('HS_cmp', '1', 30);
-            if (document.getElementById('HS_cmp-checkbox-analytics').checked === true) self.analytics = true;
-            if (document.getElementById('HS_cmp-checkbox-marketing').checked === true) self.marketing = true;
+        document.getElementById('agan_gdpr-details-actions-default').addEventListener('click', function () {
+            if (document.getElementById('agan_gdpr-checkbox-analytics').checked === true) self.analytics = true;
+            if (document.getElementById('agan_gdpr-checkbox-marketing').checked === true) self.marketing = true;
             done();
         });
     }
 
-    function loadLayer() {
+    function showConsentOverlay() {
 
+        self.layerActive = true;
         var css = document.createElement('style');
         css.innerHTML = '' +
-            '.HS_cmp,.HS_cmp *{' +
+            '.agan_gdpr,.agan_gdpr *{' +
             'box-sizing:border-box;' +
             '}' +
-            '.HS_cmp{' +
+            '.agan_gdpr{' +
             'position:fixed;' +
             'left:0;' +
             'top:0;' +
@@ -134,10 +114,10 @@ function HS_cmp(force) {
             'z-index:99999;' +
             'color:#000;' +
             '}' +
-            '.HS_cmp a{' +
+            '.agan_gdpr a{' +
             'color:#00f;' +
             '}' +
-            '.HS_cmp-bg{' +
+            '.agan_gdpr-bg{' +
             'position:fixed;' +
             'left:0;' +
             'top:0;' +
@@ -145,7 +125,7 @@ function HS_cmp(force) {
             'width:100%;' +
             'backdrop-filter:blur(2px);' +
             '}' +
-            '.HS_cmp-footer{' +
+            '.agan_gdpr-footer{' +
             'width:100%;' +
             'position:absolute;' +
             'left:0;' +
@@ -156,32 +136,32 @@ function HS_cmp(force) {
             'box-shadow: 0 0 18px rgba(0,0,0,.5);' +
             'z-index:2;' +
             '}' +
-            '.HS_cmp-footer-content{' +
+            '.agan_gdpr-footer-content{' +
             'font-size:15px;' +
             'line-height:17px;' +
             '}' +
-            '.HS_cmp-footer-actions{' +
+            '.agan_gdpr-footer-actions{' +
             'width:80%;' +
             'margin:16px auto;' +
             '}' +
             '@media (min-width:888px){' +
-            '.HS_cmp-footer{' +
+            '.agan_gdpr-footer{' +
             'position:table;' +
             '}' +
-            '.HS_cmp-footer-content{' +
+            '.agan_gdpr-footer-content{' +
             'display:table-cell;' +
             'width:80%;' +
             'padding:20px;' +
             'vertical-align:middle;' +
             '}' +
-            '.HS_cmp-footer-actions{' +
+            '.agan_gdpr-footer-actions{' +
             'display:table-cell;' +
             'width:20%;' +
             'padding:20px;' +
             'vertical-align:middle;' +
             '}' +
             '}' +
-            '.HS_cmp-footer-actions-default{' +
+            '.agan_gdpr-footer-actions-default{' +
             'width:100%;' +
             'border:0;' +
             'display:block;' +
@@ -194,7 +174,7 @@ function HS_cmp(force) {
             'margin:0 auto;' +
             '}' +
             '' +
-            '.HS_cmp-footer-actions-success{' +
+            '.agan_gdpr-footer-actions-success{' +
             'width:100%;' +
             'padding:8px;' +
             'font-size:15px;' +
@@ -210,7 +190,7 @@ function HS_cmp(force) {
             'border-radius: 6px;' +
             'border: 1px solid #888;' +
             '}' +
-            '.HS_cmp-details{' +
+            '.agan_gdpr-details{' +
             'display:none;' +
             'height:100%;' +
             'max-height:100%;' +
@@ -221,13 +201,13 @@ function HS_cmp(force) {
             'background-color:rgba(255,255,255,.9);' +
             'z-index:2;' +
             '}' +
-            '.HS_cmp-details-container{' +
+            '.agan_gdpr-details-container{' +
             'max-width:500px;' +
             'margin:0 auto;' +
             'position:relative;' +
             'padding:36px 0;' +
             '}' +
-            '.HS_cmp-details-title{' +
+            '.agan_gdpr-details-title{' +
             'position:relative;' +
             'font-weight:bold;' +
             'font-size:18px;' +
@@ -235,12 +215,12 @@ function HS_cmp(force) {
             'margin:16px 0;' +
             'padding:0 30px 0 0;' +
             '}' +
-            '.HS_cmp-checkbox{' +
+            '.agan_gdpr-checkbox{' +
             'position:absolute;' +
             'right:0;' +
             'top:0;' +
             '}' +
-            '.HS_cmp-details-actions-default{' +
+            '.agan_gdpr-details-actions-default{' +
             'width:100%;' +
             'border:0;' +
             'display:block;' +
@@ -253,7 +233,7 @@ function HS_cmp(force) {
             'margin:0 auto;' +
             '}' +
             '' +
-            '.HS_cmp-details-actions-success{' +
+            '.agan_gdpr-details-actions-success{' +
             'width:100%;' +
             'padding:8px;' +
             'font-size:15px;' +
@@ -269,7 +249,7 @@ function HS_cmp(force) {
             'border-radius: 6px;' +
             'border: 1px solid #888;' +
             '}' +
-            '#HS_cmp-details-close{' +
+            '#agan_gdpr-details-close{' +
             'position: absolute;' +
             'right: 0px;' +
             'top: 0px;' +
@@ -286,60 +266,60 @@ function HS_cmp(force) {
         document.body.appendChild(css);
 
         var html = document.createElement('div');
-        html.id = 'HS_cmp';
-        html.className = 'HS_cmp';
+        html.id = 'agan_gdpr';
+        html.className = 'agan_gdpr';
         html.innerHTML = '' +
-            '<div class="HS_cmp-bg"></div>' +
-            '<div id="HS_cmp-details" class="HS_cmp-details">' +
-            '<div class="HS_cmp-details-container">' +
-            '<span id="HS_cmp-details-close">x</span>' +
-            '<div class="HS_cmp-details-title">' +
+            '<div class="agan_gdpr-bg"></div>' +
+            '<div id="agan_gdpr-details" class="agan_gdpr-details">' +
+            '<div class="agan_gdpr-details-container">' +
+            '<span id="agan_gdpr-details-close">x</span>' +
+            '<div class="agan_gdpr-details-title">' +
             '' + self.config.lang.layerFunctionalTitle + '' +
-            '<input type="checkbox" class="HS_cmp-checkbox" name="HS_cmp-checkbox-functional" id="HS_cmp-checkbox-functional" value="1" checked onclick="return false;">' +
+            '<input type="checkbox" class="agan_gdpr-checkbox" name="agan_gdpr-checkbox-functional" id="agan_gdpr-checkbox-functional" value="1" checked onclick="return false;">' +
             '</div>' +
-            '<div class="HS_cmp-details-text">' + self.config.lang.layerFunctionalText + '</div>' +
-            '<div class="HS_cmp-details-title">' +
+            '<div class="agan_gdpr-details-text">' + self.config.lang.layerFunctionalText + '</div>' +
+            '<div class="agan_gdpr-details-title">' +
             '' + self.config.lang.layerAnalyticsTitle + '' +
-            '<input type="checkbox" class="HS_cmp-checkbox" name="HS_cmp-checkbox-analytics" id="HS_cmp-checkbox-analytics"" value="1">' +
+            '<input type="checkbox" class="agan_gdpr-checkbox" name="agan_gdpr-checkbox-analytics" id="agan_gdpr-checkbox-analytics"" value="1">' +
             '</div>' +
-            '<div class="HS_cmp-details-text">' + self.config.lang.layerAnalyticsText + '</div>' +
-            '<div class="HS_cmp-details-title">' +
+            '<div class="agan_gdpr-details-text">' + self.config.lang.layerAnalyticsText + '</div>' +
+            '<div class="agan_gdpr-details-title">' +
             '' + self.config.lang.layerMarketingTitle + '' +
-            '<input type="checkbox" class="HS_cmp-checkbox" name="HS_cmp-checkbox-marketing" id="HS_cmp-checkbox-marketing" value="1">' +
+            '<input type="checkbox" class="agan_gdpr-checkbox" name="agan_gdpr-checkbox-marketing" id="agan_gdpr-checkbox-marketing" value="1">' +
             '</div>' +
-            '<div class="HS_cmp-details-text">' + self.config.lang.layerMarketingText + '</div>' +
+            '<div class="agan_gdpr-details-text">' + self.config.lang.layerMarketingText + '</div>' +
             '' +
-            '<div class="HS_cmp-details-actions">' +
-            '<button id="HS_cmp-details-actions-default" class="HS_cmp-details-actions-default">' + self.config.lang.chooseIndividual + '</button>' +
-            '<button id="HS_cmp-details-actions-success" class="HS_cmp-details-actions-success">' + self.config.lang.allowAll + '</button>' +
+            '<div class="agan_gdpr-details-actions">' +
+            '<button id="agan_gdpr-details-actions-default" class="agan_gdpr-details-actions-default">' + self.config.lang.chooseIndividual + '</button>' +
+            '<button id="agan_gdpr-details-actions-success" class="agan_gdpr-details-actions-success">' + self.config.lang.allowAll + '</button>' +
             '</div>' +
             '</div>' +
             '</div>' +
-            '<div id="HS_cmp-footer" class="HS_cmp-footer">' +
-            '<div class="HS_cmp-footer-content">' + self.config.lang.footerText + '</div>' +
-            '<div class="HS_cmp-footer-actions">' +
-            '<button id="HS_cmp-footer-actions-success" class="HS_cmp-footer-actions-success">' + self.config.lang.allowAll + '</button>' +
-            '<button id="HS_cmp-footer-actions-default" class="HS_cmp-footer-actions-default">' + self.config.lang.saveIndividual + '</button>' +
+            '<div id="agan_gdpr-footer" class="agan_gdpr-footer">' +
+            '<div class="agan_gdpr-footer-content">' + self.config.lang.footerText + '</div>' +
+            '<div class="agan_gdpr-footer-actions">' +
+            '<button id="agan_gdpr-footer-actions-success" class="agan_gdpr-footer-actions-success">' + self.config.lang.allowAll + '</button>' +
+            '<button id="agan_gdpr-footer-actions-default" class="agan_gdpr-footer-actions-default">' + self.config.lang.saveIndividual + '</button>' +
             '</div>' +
             '</div>';
         document.body.appendChild(html);
-        bind();
+        bindActionsToOverlayElements();
     }
 
-    function init() {
-        self.cookie = getCookie('HS_cmp');
+    function initialize() {
+        self.cookie = getCookie('gdpr');
         if (self.cookie !== false && self.force !== true) {
             if (self.cookie.indexOf('analytics') !== -1) self.analytics = true;
             if (self.cookie.indexOf('marketing') !== -1) self.marketing = true;
             done();
         }
-        loadLayer();
+        showConsentOverlay();
     }
 
-    init();
+    initialize();
 
 }
 
 (function () {
-    new HS_cmp(false);
+    new AganGDPRcontrol(false);
 }());
