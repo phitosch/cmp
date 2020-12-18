@@ -6,16 +6,16 @@ function AganGDPRcontrol(force) {
         'lang': {
             'saveIndividual': 'Cookies individuell festlegen',
             'chooseIndividual': 'Einstellungen speichern',
-            'allowAll': 'Alle Cookies akzeptieren',
-            'footerText': 'Wir verwenden auf unseren Webseiten eigene und fremde Cookies: Notwendige Cookies, die für die Nutzung unserer Webseiten zwingend erforderlich sind, sowie Marketing Cookies, die Dir mehr Komfort bei der Nutzung unserer Webseiten bieten, mit denen wir aggregierte Daten zur Webseitennutzung und Statistiken generieren und zum Anzeigen relevanter Inhalte und Werbung. Wenn du auf "Cookies akzeptieren" klickst, stimmst du der Verwendung aller Cookies zu. Unter "Cookies individuell auswählen" kannst Du eine individuelle Auswahl treffen und erteilte Einwilligungen jederzeit für die Zukunft widerrufen. Weitere Informationen findest du in unserer Cookie-Richtlinie. <a href="">Impressum</a> &middot; <a href="">Hinweise zum Datenschutz</a>',
+            'allowAll': 'Alle zulassen',
+            'footerText': 'Um Dir ein optimales Einkaufserlebnis zu ermöglichen, verwenden wir Cookies und ähnliche Technologien. Indem Du auf den Button „Alle zulassen“ klickst, willigst Du in die Verwendung dieser Technologien ein. Eventuell kommt es dadurch auch zu einer Datenverarbeitung außerhalb des EWR, wie z.B. Nordamerika. Du kannst unter Cookie-Einstellungen entscheiden, welche Technologien Du zulassen möchtest. Zudem hast Du die Möglichkeit, deine bereits erteilte Einwilligung für die Zukunft zu widerrufen. Näheres zu deinem Widerrufsrecht erfährst Du <a href="https://asgoodasnew.de/datenschutz/">hier</a>.',
             'layerTitle': 'Einstellungspräferenzen wählen',
-            'layerFunctionalTitle': 'Unbedingt erforderliche Cookies',
-            'layerFunctionalText': 'Unbedingt erforderliche Cookies sind solche Cookies, die die Funktionen unserer Webseite gewährleisten. Ohne die unbedingt erforderlichen Cookies kann die Webseite nicht wie vorgesehen genutzt werden. Sie werden beispielsweise benötigt, um Ihnen die Warenkorb-Funktion über mehrere Seiten hinweg anzubieten oder dafür, dass ein angemeldeter Nutzer beim Zugriff auf verschiedene Unterseiten einer Webseite angemeldet bleibt und beim Aufruf einer neuen Seite nicht immer wieder die Anmeldedaten neu eingeben muss. Unbedingt erforderliche Cookies sind nur Cookies von unserer Plattform, alle Informationen, die in den Cookies gespeichert sind, gehen nur an unsere Plattform und werden nicht an Dritte geschickt. Rechtsgrundlage für die Nutzung von unbedingt erforderlichen Cookies auf unserer Webseite ist Art. 6 Abs. 1 lit f) DSGVO (berechtigtes Interesse, hier an der technisch einwandfreien Bereitstellung unserer Webseite und der darüber angebotenen Leistungen) Die Nutzung von unbedingt erforderlichen Cookies ist ohne Ihre vorherige Einwilligung möglich und zulässig. Sie können die unbedingt erforderlichen Cookies insgesamt über die Browsereinstellungen deaktivieren, dies kann allerdings zu Funktionseinschränkungen im Zusammenhang mit der Nutzung unserer Webseite führen. <a href="">Hinweise zum Datenschutz</a>',
+            'layerFunctionalTitle': 'Notwendige Cookies',
+            'layerFunctionalText': 'Der Einsatz von notwendigen Cookies dient dazu, dass man bestimmte Funktionen auf unserer Webseite überhaupt nutzen kann (z.B. Warenkorbfunktion). Ohne diese Cookies kann unsere Internetseite nicht richtig funktionieren.',
             'layerAnalyticsTitle': 'Analyse Cookies',
-            'layerAnalyticsText': 'Diese Cookies ermöglichen es uns, Besuche und Verkehrsquellen zu zählen, damit wir die Leistung unserer Website messen und verbessern können. Sie unterstützen uns bei der Beantwortung der Fragen, welche Seiten am beliebtesten sind, welche am wenigsten genutzt werden und wie sich Besucher auf der Website bewegen. Alle von diesen Cookies erfassten Informationen werden aggregiert und sind deshalb anonym. Wenn Sie diese Cookies nicht zulassen, können wir nicht wissen, wann Sie unsere Website besucht haben. <a href="">Hinweise zum Datenschutz</a>',
+            'layerAnalyticsText': 'Statistik-Cookies helfen uns zu verstehen, wie Besucher mit unseren Webseiten interagieren, indem Daten in anonymisierter Form gesammelt und weitergeleitet werden.',
             'layerMarketingTitle': 'Marketing Cookies',
-            'layerMarketingText': 'Marketing Cookies sammeln Informationen darüber, wie unsere Webseite genutzt wird, um deren Attraktivität, Inhalt und Funktionalität zu verbessern. Diese Cookies helfen uns zu bestimmen, ob, welche, wie oft und und wie lange Unterseiten unserer Webseite besucht werden und für welche Inhalte sich die Nutzer besonders interessieren. Ferner erfassen wir Bewegungen, „Klicks“ und das Scrollen mit der Computermaus, um zu verstehen, welche Bereiche unserer Webseite die Nutzer besonders interessieren. Diese Cookies speichern keine Informationen, die eine Identifikation des Nutzers zulassen. Die gesammelten Informationen sind aggregiert und ermöglichen uns keinen unmittelbaren Rückschluss auf deine Person. Sie dienen allein dazu, Statistiken zu erstellen, um die Inhalte unserer Webseite gezielter auf die Bedürfnisse unserer Nutzer abzustimmen, das Nutzerlebnis zu verbessern und unser Angebot zu optimieren. Marketing Cookies werden ferner verwendet, um Informationen über die vom Benutzer besuchten Webseiten zu sammeln, um zielgruppenorientierte Werbung für den Benutzer zu erstellen und an seinen Interessen ausgerichtete Werbeanzeigen auszuspielen. Sie werden außerdem dazu verwendet, die Erscheinungshäufigkeit einer Anzeige zu begrenzen und die Effektivität von Werbekampagnen zu messen. Diese Cookies können Informationen an unsere Plattform, oder an eine andere Webseite, zu der das Cookie gehört (Third Party Cookie) geschickt werden. Rechtsgrundlage für die Nutzung der Marketing Cookies ist Art. 6 Abs. 1 a) DSGVO inVerbindung mit Ihrer Einwilligung. <a href="">Hinweise zum Datenschutz</a>',
-        },
+            'layerMarketingText': 'Wir verwenden Marketing-Cookies, um Besuchern auf Webseiten zu folgen. Dadurch können wir Ihnen in Zusammenarbeit mit unseren Partnern personalisierte und Sie ansprechende Inhalte, die dadurch auch wertvoller für unsere werbetreibenden Partner sind, anzeigen.'
+        }
     };
 
     self.force = force || false;
@@ -55,11 +55,11 @@ function AganGDPRcontrol(force) {
         if (self.analytics) allow += ',analytics';
         if (self.marketing) allow += ',marketing';
         window.dataLayer = window.dataLayer || [];
-        if(checkLoaded()){
-            window.dataLayer.push({'event':'gdpr','gdpr_allow':allow});
+        if (checkLoaded()) {
+            window.dataLayer.push({'event': 'gdpr', 'gdpr_allow': allow});
         } else {
-            document.addEventListener('DOMContentLoaded',function(){
-                window.dataLayer.push({'event':'gdpr','gdpr_allow':allow});
+            document.addEventListener('DOMContentLoaded', function () {
+                window.dataLayer.push({'event': 'gdpr', 'gdpr_allow': allow});
             })
         }
         setCookie('gdpr', allow, 30);
@@ -219,6 +219,9 @@ function AganGDPRcontrol(force) {
             'position:absolute;' +
             'right:0;' +
             'top:0;' +
+            '-webkit-appearance: auto;' +
+            '-moz-appearance: auto;' +
+            'appearance: auto;' +
             '}' +
             '.agan_gdpr-details-actions-default{' +
             'width:100%;' +
